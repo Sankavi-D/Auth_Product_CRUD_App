@@ -1,20 +1,22 @@
-const express = require("express");
-const Product = require("../models/product.model");
+const express = require('express');
 const router = express.Router();
-const {getProducts, getProduct, createProduct, updateProduct, deleteProduct} = require('../controllers/product.controller');
+const authenticateToken = require('../middleware/auth.middleware');
+const {
+  getProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct
+} = require('../controllers/product.controller');
 
-//get products / a product
-router.get("/", getProducts);
-router.get("/:id", getProduct);
+// Public routes
+router.get('/', authenticateToken, getProducts);
+router.get('/:id', authenticateToken, getProduct);
 
-//create a product
-router.post("/", createProduct);
-
-//update a product
-router.put("/:id", updateProduct);
-
-// delete a product
-router.delete("/:id", deleteProduct);
-
+// Protected routes (require authentication)
+router.use(authenticateToken);
+router.post('/', createProduct);
+router.put('/:id', updateProduct);
+router.delete('/:id', deleteProduct);
 
 module.exports = router;

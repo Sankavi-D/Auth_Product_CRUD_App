@@ -1,4 +1,4 @@
-const Product = require('../models/product.model');
+const { Product, productValidationSchema } = require('../models/product.model');
 
 const getProducts = async (req, res) => {
     try {
@@ -21,6 +21,15 @@ const getProduct = async (req, res) => {
 
 const createProduct = async (req, res) => {
     try {
+      // Validate request body
+      console.log("Validating Product");
+      const { error } = productValidationSchema.validate(req.body);
+      if (error) {
+          const errorMessage = error.details.map(detail => detail.message).join(', ');
+          return res.status(400).json({ message: errorMessage });
+      }
+
+      // Create Product
         const product = await Product.create(req.body);
         res.status(200).json(product);
     } catch (error) {
