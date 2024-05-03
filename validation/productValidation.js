@@ -15,8 +15,8 @@ const productSchema = Joi.object({
     'number.base': 'Price must be a number',
     'number.min': 'Price must be a positive number or zero',
     'any.required': 'Price is required'
-  }),
+  }).strict(),
   image: Joi.string().allow('').optional()
-}).strict();
+});
 
 module.exports = productSchema;

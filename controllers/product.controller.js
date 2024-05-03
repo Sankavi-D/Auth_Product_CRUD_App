@@ -1,7 +1,9 @@
-const { Product, productValidationSchema } = require('../models/product.model');
+const Product  = require('../models/product.model');
+const productValidationSchema = require('../validation/productValidation');
 
 const getProducts = async (req, res) => {
     try {
+      console.log("Getting All Products");
         const products = await Product.find({});
         res.status(200).json(products);
     } catch (error) {
@@ -11,6 +13,7 @@ const getProducts = async (req, res) => {
 
 const getProduct = async (req, res) => {
     try {
+      console.log("Getting a Single Product");
         const {id} = req.params;
         const product = await Product.findById(id);
         res.status(200).json(product);
@@ -39,6 +42,7 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
+      console.log("Updating a Product Details");
       const { id } = req.params;
   
       const product = await Product.findByIdAndUpdate(id, req.body);
@@ -56,6 +60,7 @@ const updateProduct = async (req, res) => {
   
 const deleteProduct = async (req, res) => {
     try {
+      console.log("Deleting a Product");
       const { id } = req.params;
   
       const product = await Product.findByIdAndDelete(id);
