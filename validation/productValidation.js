@@ -5,12 +5,6 @@ const productSchema = Joi.object({
     'string.base': 'Product name must be a string',
     'string.empty': 'Product name is required: Cannot be empty',
     'any.required': 'Product name is required: Cannot be empty'
-  }).custom((value, helpers) => {
-    if (isNaN(value)) {
-      return value;
-    } else {
-      return helpers.error('string.base');
-    }
   }),
   quantity: Joi.number().required().min(0).messages({
     'number.base': 'Quantity must be a number',
