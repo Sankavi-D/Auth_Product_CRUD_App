@@ -8,6 +8,7 @@ const {
   updateProduct,
   deleteProduct
 } = require('../controllers/product.controller');
+const upload = require('../middleware/multer');
 
 // Public routes
 router.get('/', authenticateToken, getProducts);
@@ -15,7 +16,7 @@ router.get('/:id', authenticateToken, getProduct);
 
 // Protected routes (require authentication)
 router.use(authenticateToken);
-router.post('/', createProduct);
+router.post('/', upload.single('image'), createProduct);
 router.put('/:id', updateProduct);
 router.delete('/:id', deleteProduct);
 

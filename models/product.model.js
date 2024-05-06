@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const productValidationSchema = require('../validation/productValidation');
 
 const ProductSchema = mongoose.Schema(
     {
